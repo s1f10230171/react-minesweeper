@@ -1,12 +1,19 @@
-const Cell = ({details}) => {
+const Cell = ({details, onUpdateFlag}) => {
     const cellStyle = {
         width: 40, height: 40, background: "lightgray",
         borderWidth: 3, borderStyle: "outset", display: "flex",
-        justifyContent: "conter", alignItems: "conter", cursor: "pointer"
+        justifyContent: "center", alignItems: "center", cursor: "pointer"
+    }
+    const getCellDisplay = () => {
+        if(!details.revealed) {return details.flagged ? '🚩':null;}
+        if(details.value === 'X'){return '💣';}
+        if(details.value === 0){return null;}
+        return details.value;
     }
     return(
-        <div style={cellStyle}>
-            {details.value}
+        <div style={cellStyle} 
+        onContextMenu={(e) => {e.preventDefault(); onUpdateFlag(e,details.x, details.y);}}>
+            {getCellDisplay()}
         </div>
     );
 }
