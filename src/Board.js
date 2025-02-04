@@ -4,6 +4,7 @@ import Cell from "./Cell";
 
 const Board = ({row, col, mines}) => {
     const [gameData, setGameData] = useState({});
+    const [resetGame, setResetGame] = useState(true);
 
     useEffect(()=>{
         const newBoard = createBoard(row, col, mines);
@@ -14,7 +15,9 @@ const Board = ({row, col, mines}) => {
             cellsWithoutMines: row * col - mines,
             numOfMines: mines
         });
-    },[]);
+        setResetGame(false);
+    },[row, col, mines, resetGame]);
+    
     const handleUpdateFlag = (e, x, y)=> {
         //右クリックメニューを無効化
         e.preventDefault();
@@ -99,7 +102,9 @@ const Board = ({row, col, mines}) => {
 
     return(
         <div>
-            <div>残りの地雷数:{gameData.numOfMines}</div>
+            <div>🚩{gameData.numOfMines} &nbsp;&nbsp;
+            <button onClick={()=>{setResetGame(true);}}>Reset</button>
+            </div>
             <div>Game Status: {gameData.gameStatus}</div>
             <div>
                 {gameData.board.map((singleRow, index1)=>{
