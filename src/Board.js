@@ -5,7 +5,18 @@ import Cell from "./Cell";
 const Board = ({row, col, mines}) => {
     const [gameData, setGameData] = useState({});
     const [resetGame, setResetGame] = useState(true);
+    const [count, setCount] = useState(0);
+    const [startCount, setStartCount] = useState(false);
 
+    useEffect(()=>{
+        let intervel;
+        if(!startCount) {return ()=>{}}//タイマーが開始されていない場合何もしない
+        intervel = setInterval(()=>{
+            setCount((prev)=>prev+1);
+        },1000);
+        return () => clearInterval(intervel);//コンポーネントがアンマウントされたらタイマーを停止
+    },[startCount]);
+        
     useEffect(()=>{
         const newBoard = createBoard(row, col, mines);
         console.log(newBoard);
@@ -16,6 +27,8 @@ const Board = ({row, col, mines}) => {
             numOfMines: mines
         });
         setResetGame(false);
+        setCount(0);
+        setStartCount(false);
     },[row, col, mines, resetGame]);
     
     const handleUpdateFlag = (e, x, y)=> {
@@ -53,7 +66,8 @@ const Board = ({row, col, mines}) => {
             gameData.board[x][y].flagged){return;}
             
         const newGameData = {...gameData};
-
+        //地雷だった場合タイマーを停止しそれ以外はリセット等かけてないので最初にクリックしたマスのみタイマー開始が有効
+        if (!startCount){setStartCount(true);}//マスを開ける処理の際にタイマーを開始する
         if(newGameData.board[x][y].value === 'X'){
             //クリックしたマスが地雷だった場合
             //すべての地雷マスをオープン
@@ -65,6 +79,7 @@ const Board = ({row, col, mines}) => {
                 });
             });
             newGameData.gameStatus = 'You Lost';
+            setStartCount(false);//カウントを止める
         }else if(newGameData.board[x][y].value === 0){
             //クリックしたマスに地雷がない場合
             const newRevealedData = revealEmpty(x,y,newGameData);
@@ -102,7 +117,7 @@ const Board = ({row, col, mines}) => {
 
     return(
         <div>
-            <div>🚩{gameData.numOfMines} &nbsp;&nbsp;
+            <div>🚩{gameData.numOfMines} &nbsp;&nbsp; ⏱{count} &nbsp;&nbsp;
             <button onClick={()=>{setResetGame(true);}}>Reset</button>
             </div>
             <div>Game Status: {gameData.gameStatus}</div>
