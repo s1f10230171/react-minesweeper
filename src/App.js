@@ -13,7 +13,7 @@ function App() {
   }
   return(
     <div className='App'>
-    <h2>Minesweeper</h2>
+    <h2>Minesweeper!!</h2>
     <div style={containerStyle}>
     <Board row={GAME_ROW} col={GAME_COL} mines={MINES} />
     </div>
