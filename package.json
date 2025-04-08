@@ -34,5 +34,8 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://s1f10230171.github.io/react-minesweeper"
+  "homepage": "https://s1f10230171.github.io/react-minesweeper",
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
+  }
 }
