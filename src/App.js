@@ -1,25 +1,23 @@
 import './App.css';
-import Board from './Board';
 import Header from './Header';
+import Rule from './Rule';
+import Game from './Game';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-const GAME_ROW = 10;
-const GAME_COL = 10;
-const MINES = 15;
+
 
 
 function App() {
-  const containerStyle={
-    display:'flex',
-    justifyContent:'center'
-  }
   return(
-    <div className='App'>
-    <Header />
-    <h2>Minesweeper!!</h2>
-    <div style={containerStyle}>
-    <Board row={GAME_ROW} col={GAME_COL} mines={MINES} />
-    </div>
-    </div>
+    <Router>
+      <div className='App'>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Game />} />
+          <Route path="/rule" element={<Rule />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
