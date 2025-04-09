@@ -63,11 +63,11 @@ const Board = ({row, col, mines}) => {
         //ゲーム終了時にフラグの更新が行われないようにする
         if(gameData.gameStatus === 'You Lost' ||
             gameData.gameStatus === 'You Win'){return;}
-        if(gameData.board[x][y].revealed){return;}
+        // if(gameData.board[x][y].revealed){return;}
 
         setGameData((prev)=> {
             //newBoardに現在のboardのコピーを作成
-            const newBoard = [...prev.board];
+            const newBoard = prev.board.map(row => row.map(cell => ({ ...cell })));
             //フラグの状態を反転
             const newFlag = !newBoard[x][y].flagged;
             //残りの地雷の数を定義
