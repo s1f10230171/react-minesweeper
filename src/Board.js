@@ -17,6 +17,16 @@ const modalStyle = {
     zIndex: 1000,
   };
 
+const ruleStyle={
+    justifyContent:'center',
+    backgroundColor: 'rgba(30, 120, 155, 0.52)',
+    padding: '20px',
+    borderRadius: '10px',
+    minHeight: '200px',
+    boxShadow: '0 0 10px rgba(0,0,0,0.2)',
+    color:'rgb(255, 255, 255)',
+  };
+
 const Board = ({row, col, mines}) => {
     const [gameData, setGameData] = useState({});
     const [resetGame, setResetGame] = useState(true);
@@ -157,7 +167,9 @@ const Board = ({row, col, mines}) => {
             {showRule && (
                 <div style={modalStyle} onClick={() => setShowRule(false)}>
                     <div onClick={(e) => e.stopPropagation()}>
+                        <div style={ruleStyle}>
                         <Rule />
+                        </div>
                         <button onClick={() => setShowRule(false)}>Close</button>
                     </div>
                 </div>
