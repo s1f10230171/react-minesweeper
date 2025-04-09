@@ -1,12 +1,28 @@
 import { useState, useEffect } from "react";
 import createBoard from "./createBoard";
 import Cell from "./Cell";
+import Rule from "./Rule";
+
+const modalStyle = {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100vw",
+    height: "100vh",
+    backgroundColor: "rgba(0,0,0,0.5)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "flex-start",
+    paddingTop: "200px",
+    zIndex: 1000,
+  };
 
 const Board = ({row, col, mines}) => {
     const [gameData, setGameData] = useState({});
     const [resetGame, setResetGame] = useState(true);
     const [count, setCount] = useState(0);
     const [startCount, setStartCount] = useState(false);
+    const [showRule, setShowRule] = useState(false);
 
     useEffect(()=>{
         let intervel;
@@ -119,6 +135,7 @@ const Board = ({row, col, mines}) => {
         <div>
             <div>🚩{gameData.numOfMines} &nbsp;&nbsp; ⏱{count} &nbsp;&nbsp;
             <button onClick={()=>{setResetGame(true);}}>Reset</button>
+            <button onClick={() => setShowRule(true)}>Rule</button> 
             </div>
             <div>Game Status: {gameData.gameStatus}</div>
             <div>
@@ -135,6 +152,16 @@ const Board = ({row, col, mines}) => {
                     )
                 })}
             </div>
+                
+                {/* モーダル表示 */}
+            {showRule && (
+                <div style={modalStyle} onClick={() => setShowRule(false)}>
+                    <div onClick={(e) => e.stopPropagation()}>
+                        <Rule />
+                        <button onClick={() => setShowRule(false)}>Close</button>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }
