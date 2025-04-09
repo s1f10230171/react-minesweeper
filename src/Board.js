@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import createBoard from "./createBoard";
 import Cell from "./Cell";
-import Rule from "./Rule";
+import { GameRule } from './Rule';
 
 const modalStyle = {
     position: "fixed",
@@ -168,7 +168,7 @@ const Board = ({row, col, mines}) => {
                 <div style={modalStyle} onClick={() => setShowRule(false)}>
                     <div onClick={(e) => e.stopPropagation()}>
                         <div style={ruleStyle}>
-                        <Rule />
+                        <GameRule />
                         </div>
                         <button onClick={() => setShowRule(false)}>Close</button>
                     </div>
