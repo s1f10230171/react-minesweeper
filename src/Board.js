@@ -19,7 +19,7 @@ const modalStyle = {
 
 const ruleStyle={
     justifyContent:'center',
-    backgroundColor: 'rgba(30, 120, 155, 0.52)',
+    backgroundColor: 'rgba(67, 77, 81, 0.52)',
     padding: '20px',
     borderRadius: '10px',
     minHeight: '200px',
